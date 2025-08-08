@@ -1,11 +1,11 @@
-# coachtechフリマ
+# KOTECH MARKET
 
 ## 環境構築
 
 1. リポジトリをクローン
 
     ```bash
-    git clone git@github.com:kawamata-natsuki/coachtech-flea.git
+    git clone git@github.com:kawamata-natsuki/fleamarket-app.git
     ``` 
 <br>  
 
@@ -280,7 +280,7 @@ http://localhost:{NGINX_PORT}/login
 ※ログイン確認用のテストアカウントです。  
 ※管理者ユーザーは管理画面が存在しないため、ログイン確認用アカウントとしてのみ作成しています。
 
-coachtech pro試験の仕様に合わせています。  
+
 - 一般ユーザー①：商品データCO01～CO05を出品
 - 一般ユーザー②：商品データCO06～CO10を出品
 - 一般ユーザー③：出品商品なし
@@ -441,7 +441,7 @@ nginx の設定ファイル（`nginx/default.conf`）にて以下のように設
 
 
 ## 【補足】追加機能について【2025年7月28日 更新】
-- coachtech pro試験として以下の機能を新たに実装しました。
+- 以下の機能を新たに実装しました。
     - 取引チャット機能
     - 評価機能
     - 取引完了通知機能  
