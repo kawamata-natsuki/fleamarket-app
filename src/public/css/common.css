@@ -1,0 +1,594 @@
+/* ===============================
+    ページ全体のレイアウト
+   ===============================*/
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: Inter;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a,
+a:visited,
+a:link,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+textarea,
+input,
+select,
+button {
+  font-family: Inter;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 82px);
+  width: 100%;
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 0;
+  flex-grow: 1;
+  transition: none;
+  margin-top: 82px;
+}
+
+.main.transition-enabled {
+  transition: margin-top 0.5s ease;
+}
+
+/* タイトル */
+.content__heading {
+  font-weight: 700;
+  font-size: 36px;
+  text-align: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.form__label {
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.form__input {
+  border: 1px solid #5F5F5F;
+  border-radius: 4px;
+  max-width: 680px;
+  height: 60px;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+.form__input:focus {
+  outline: none;
+  border: 2px solid #5F5F5F;
+  background-color: #f7f7f7;
+  box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.15);
+}
+
+.form__input::placeholder {
+  color: #999;
+  font-size: 16px;
+}
+
+/* ===============================
+    フラッシュメッセージ・エラーメッセージ
+   ===============================*/
+
+.error-message {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: transparent;
+  visibility: hidden;
+  gap: 6px;
+  margin-top: 8px;
+  min-height: 24px;
+}
+
+/* 表示状態 */
+.error-message.has-error {
+  color: #d93025;
+  visibility: visible;
+}
+
+/* アイコン */
+.error-message::before {
+  content: '';
+  background-image: url('/images/icons/alert-red.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.flash-container {
+  position: fixed;
+  top: 82px;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  text-align: center;
+  pointer-events: none;
+}
+
+.flash-message {
+  width: 100%;
+  min-height: 24px;
+  padding: 12px 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;
+  background-color: transparent;
+  color: transparent;
+  border: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+}
+
+.flash-message.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* 表示される状態 */
+.flash-message.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 成功用スタイル */
+.flash-message--success.is-visible {
+  background-color: #e6ffed;
+  color: #1a7f37;
+  border-bottom: 1px solid #1a7f37;
+}
+
+/* エラー用スタイル */
+.flash-message--error.is-visible {
+  background-color: #ffe6e6;
+  color: #d93025;
+  border-bottom: 1px solid #d93025;
+}
+
+/* ===============================
+    商品画像のデザイン
+   ===============================*/
+
+.item-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+.item-card__image {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-card__img {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s;
+  border-radius: 4px;
+}
+
+/* SOLD状態の画像を暗くする */
+.item-card__img--sold {
+  filter: grayscale(20%) brightness(50%);
+}
+
+/* 中央にSOLD OUT表示 */
+.item-card__sold-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: clamp(1rem, 1.7vw, 1.3rem);
+  font-weight: 900;
+  padding: 6px 12px;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  text-transform: uppercase;
+  z-index: 5;
+  white-space: nowrap;
+}
+
+/* チャット未読アイコン */
+.item-card__badge {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: red;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 50%;
+  z-index: 20;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ===============================
+    ユーザーアイコンのデザイン
+   ===============================*/
+
+.user-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 1px solid #ccc;
+}
+
+/* デフォルトユーザーアイコン */
+.user-icon--default {
+  border: none;
+}
+
+/* ===============================
+    ボタンのデザイン
+   ===============================*/
+
+/* 白背景、赤文字、赤枠線 */
+.button--outline-red {
+  color: #FF5555;
+  background-color: #fff;
+  border: 2px solid #FF5555;
+  border-radius: 10px;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.button--outline-red:hover {
+  background-color: #FFF5F5;
+  opacity: 0.95;
+}
+
+.button--outline-red:active {
+  background-color: #FFECEC;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0.85;
+}
+
+/* 赤背景・白文字 */
+.button--solid-red {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 56px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 0.05em;
+  border-radius: 8px;
+  background-color: #FF5555;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.button--solid-red:hover {
+  background-color: #fa5a5a;
+  opacity: 0.95;
+}
+
+.button--solid-red:active {
+  background-color: #e84c4c;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0.85;
+}
+
+/* ===============================
+    headerのデザイン
+   ===============================*/
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 82px;
+  background-color: #000;
+  z-index: 1000;
+}
+
+.header__inner {
+  max-width: 1512px;
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+}
+
+.header__logo {
+  padding: 0 24px;
+}
+
+.header-nav {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-nav__search {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.search-form {
+  width: 90%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.search-form__input {
+  width: 80%;
+  padding: 8px 12px;
+  background-color: #FFF;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 24px;
+  color: #333;
+}
+
+.search-form__button {
+  width: 20%;
+  border: 2px solid #FFF;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  color: #FFF;
+  cursor: pointer;
+}
+
+.search-form__button:active {
+  background-color: #fff;
+  color: #000;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+}
+
+.header-nav__links {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.header-nav__item {
+  font-weight: 400;
+  font-size: 24px;
+  color: #FFF;
+  text-decoration: none;
+}
+
+.header-nav__item:active {
+  opacity: 0.6;
+}
+
+.header-nav__button {
+  color: #FFF;
+}
+
+.header-nav__item--sell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 24px;
+  background-color: #FFF;
+  color: #000;
+  border-radius: 4px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* ===============================
+      タブレット（768〜850px）対応
+   =============================== */
+
+@media screen and (min-width:768px) and (max-width:850px) {
+  .main {
+    min-height: calc(100vh - 65px);
+    max-width: 850px;
+    margin-top: 65px;
+  }
+
+  /* ヘッダー */
+  .header {
+    height: 65px;
+  }
+
+  .form__input {
+    height: 48px;
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .header__inner {
+    max-width: 100%;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+  }
+
+  .header-logo {
+    max-width: 180px;
+    height: 100%;
+  }
+
+  .header-nav {
+    gap: 4px;
+  }
+
+  .search-form__input {
+    padding: 4px 8px;
+    font-size: 16px;
+  }
+
+  .header-nav__links {
+    gap: 8px;
+  }
+
+  .header-nav__item {
+    font-size: 16px;
+  }
+
+  .header-nav__item--sell {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 16px;
+  }
+
+  .content__heading {
+    font-size: 28px;
+  }
+
+  .form__label {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .form__input {
+    height: 48px;
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+
+  .form__input::placeholder {
+    font-size: 14px;
+  }
+
+  .error-message {
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  /* アイコン */
+  .error-message::before {
+    width: 14px;
+    height: 14px;
+  }
+
+  .flash-container {
+    position: fixed;
+    top: 65px;
+  }
+
+  .flash-message {
+    padding: 8px 0;
+    font-size: 12px;
+  }
+
+  /* 商品画像のデザイン */
+
+  .item-card__sold-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: clamp(1rem, 1.7vw, 1.3rem);
+    font-weight: 900;
+    padding: 6px 12px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    text-transform: uppercase;
+    z-index: 5;
+  }
+
+  /* チャット未読アイコン */
+  .item-card__badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: red;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 50%;
+    z-index: 20;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+}

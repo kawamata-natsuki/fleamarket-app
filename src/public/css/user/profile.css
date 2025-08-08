@@ -1,0 +1,266 @@
+.profile-page {
+  min-height: calc(100vh - 82px);
+}
+
+.profile-page__container {
+  padding: 20px 70px;
+}
+
+.profile-page__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: 24px;
+  height: 200px;
+  margin-top: 24px;
+}
+
+/* アイコン＋名前 */
+.profile-page__user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.user-icon {
+  width: 175px;
+  height: 175px;
+}
+
+.user-icon--default {
+  width: 175px;
+  height: 175px;
+}
+
+.profile-page__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-page__name {
+  max-width: 100%;
+  font-weight: 700;
+  font-size: 36px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.profile-page__rating {
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.star-filled {
+  color: #FFF048;
+}
+
+.star-empty {
+  color: #D9D9D9;
+}
+
+/* 編集リンク */
+.profile-page__edit-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-page__edit-link {
+  width: 50%;
+  font-weight: 700;
+  font-size: 26px;
+  padding: 8px 16px;
+}
+
+/* メニュータブ */
+.profile-page__menu-wrapper {
+  position: relative;
+  margin-top: 40px;
+  margin-bottom: 70px;
+}
+
+.profile-page__menu-wrapper::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 2px;
+  background-color: #5F5F5F;
+  z-index: 0;
+}
+
+.profile-page__menu {
+  position: relative;
+  z-index: 1;
+  max-width: 1540px;
+  margin: 0 auto;
+}
+
+.profile-page__tabs {
+  display: flex;
+  gap: 60px;
+  padding: 0 100px 16px;
+}
+
+.profile-page__tab.is-active .profile-page__link {
+  color: #FF0000;
+}
+
+.profile-page__link {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 24px;
+  color: #5F5F5F;
+}
+
+/* 未読アイコン(メニュータブ） */
+.badge-unread {
+  display: inline-block;
+  background: red;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 0 6px;
+  line-height: 30px;
+  min-width: 30px;
+  text-align: center;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+/* 商品リスト */
+.profile-page__items {
+  margin-top: 32px;
+}
+
+.profile-page__empty {
+  text-align: center;
+  font-size: 20px;
+  color: #666;
+}
+
+.profile-page__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 70px;
+}
+
+.profile-page__list .item-card__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 400;
+  font-size: 24px;
+  color: #000000;
+}
+
+/* ===============================
+      タブレット（768〜850px）対応
+   =============================== */
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  .profile-page {
+    min-height: calc(100vh - 65px);
+  }
+
+  .profile-page__container {
+    padding: 0 28px;
+  }
+
+  .profile-page__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 0;
+    height: auto;
+  }
+
+  /* アイコン＋名前 */
+  .profile-page__user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .user-icon,
+  .user-icon--default {
+    width: 130px;
+    height: 130px;
+    justify-content: center;
+  }
+
+  .profile-page__user-info {
+    gap: 8px;
+    padding-left: 0px;
+  }
+
+  .profile-page__name {
+    font-weight: 600;
+    font-size: 24px;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  /* 編集リンク */
+  .profile-page__edit-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-page__edit-link {
+    max-width: 200px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 6px 12px;
+    margin-top: 4px;
+  }
+
+  /* メニュータブ */
+  .profile-page__menu-wrapper {
+    margin-top: 20px;
+    margin-bottom: 48px;
+  }
+
+  .profile-page__tabs {
+    gap: 48px;
+    padding-left: 20px;
+  }
+
+  .profile-page__link {
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .profile-page__items {
+    margin-top: 28px;
+  }
+
+  .profile-page__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+  }
+
+  .profile-page__empty {
+    font-size: 16px;
+  }
+
+  .profile-page__list .item-card__name {
+    font-size: 16px;
+  }
+}
