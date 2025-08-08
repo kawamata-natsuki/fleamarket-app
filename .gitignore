@@ -20,6 +20,8 @@
 
 # Laravel storage
 /src/storage/*
+/src/storage/framework/views/*.php
+/src/storage/framework/sessions/*
 !/src/storage/.gitignore
 !/src/storage/framework
 !/src/storage/framework/cache
