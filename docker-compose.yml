@@ -22,7 +22,7 @@ services:
     image: mysql:8.0
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=coachtech_flea_db
+      - MYSQL_DATABASE=fleamarket_db
       - MYSQL_USER=laravel_user
       - MYSQL_PASSWORD=laravel_pass
     volumes:
