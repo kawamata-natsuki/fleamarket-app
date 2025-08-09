@@ -32,3 +32,4 @@
 !/src/storage/framework/views/.gitignore
 !/src/storage/logs
 !/src/storage/logs/.gitignore
+/storage/logs/laravel.log
