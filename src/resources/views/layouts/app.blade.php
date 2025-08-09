@@ -10,7 +10,7 @@
   <link href="https://unpkg.com/cropperjs/dist/cropper.min.css" rel="stylesheet">
   <script src="https://unpkg.com/cropperjs/dist/cropper.min.js"></script>
   @yield('css')
-  <title>coachtechフリマ</title>
+  <title>KOTECH MARKET</title>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
     <div class="header__inner">
       <div class="header__logo">
         <a href="/">
-          <img class="header-logo" src="{{ asset('images/logo.svg') }}" alt="logo">
+          <span class="header-logo">KOTECH MARKET</span>
         </a>
       </div>
 
