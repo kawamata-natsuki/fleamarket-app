@@ -4,6 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font Awesome 7.0.0 -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    rel="stylesheet" />
+
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/common.css') }}">
@@ -18,7 +24,7 @@
     <div class="header__inner">
       <div class="header__logo">
         <a href="/">
-          <span class="header-logo">KOTECH MARKET</span>
+          <span class="header-logo"><i class="fa-solid fa-cart-shopping logo-icon"></i>KOTECH MARKET</span>
         </a>
       </div>
 
@@ -28,11 +34,13 @@
       @auth
       <nav class="header-nav">
         <div class="header-nav__search">
+          @if (request()->routeIs('items.index'))
           <form class="search-form" action="/" method="get">
             <input class="search-form__input" type="text" name="keyword" value="{{ request('keyword') }}"
               placeholder="何をお探しですか？">
             <button class="search-form__button" type="submit">検索</button>
           </form>
+          @endif
         </div>
         <div class="header-nav__links">
           <form class="header-nav__item header-nav__item--logout" action="{{ route('logout') }}" method="POST">
@@ -49,11 +57,13 @@
       @if (!request()->routeIs(['login', 'register']))
       <nav class="header-nav">
         <div class="header-nav__search">
+          @if (request()->routeIs('items.index'))
           <form class="search-form" action="/" method="get">
             <input class="search-form__input" type="text" name="keyword" value="{{ request('keyword') }}"
               placeholder="何をお探しですか？">
             <button class="search-form__button" type="submit">検索</button>
           </form>
+          @endif
         </div>
         <div class="header-nav__links">
           <a class="header-nav__item header-nav__item--login" href="{{ route('login') }}">ログイン</a>
