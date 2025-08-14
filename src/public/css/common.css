@@ -11,6 +11,21 @@ body {
   font-family: Inter;
 }
 
+html,
+body,
+.main {
+  overflow-y: auto;
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* Chrome / Edge / Safari */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.main::-webkit-scrollbar {
+  display: none;
+}
+
 *,
 *::before,
 *::after {
@@ -365,6 +380,16 @@ button {
 
 .header__logo {
   padding: 0 24px;
+}
+
+.header-logo {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.logo-icon {
+  margin-right: 8px;
 }
 
 .header-nav {
