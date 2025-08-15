@@ -27,20 +27,55 @@ Laravel / MySQL / Docker を用いて開発したフリマアプリです。
 - **テスト**：PHPUnit（Featureテスト）
 - **バージョン管理**：Git / GitHub
 
-
 ## 環境構築手順
 本アプリのローカル環境構築やテスト環境のセットアップ手順は、[INSTALL.md](./INSTALL.md) に詳しく記載しています。  
-
 
 ## ER図
 ![ER図](er.drawio.png)
 
+## 画面キャプチャ
 
-## URL
-- 開発環境 ：http://localhost:{NGINX_PORT}  
-- データベース：http://localhost:{PHPMYADMIN_PORT}  
-※ {NGINX_PORT}や {PHPMYADMIN_PORT}は `docker-compose.override.yml` で各自の環境に合わせて調整してください。
+### ログイン画面
+![ログイン画面](./src/public/images/readme/screen1.png)
 
+### 会員登録画面
+![会員登録画面](./src/public/images/readme/screen2.png)
+
+### 商品一覧画面
+![商品一覧画面](./src/public/images/readme/screen3.png)
+
+### 商品詳細画面①
+![商品詳細画面①](./src/public/images/readme/screen4-1.png)
+
+### 商品詳細画面②
+![商品詳細画面②](./src/public/images/readme/screen4-2.png)
+
+### 商品購入画面
+![商品購入画面](./src/public/images/readme/screen5.png)
+
+### 決済（Stripe）画面
+![決済（Stripe）画面](./src/public/images/readme/screen6.png)
+
+### 購入完了画面
+![購入完了画面](./src/public/images/readme/screen7.png)
+
+### 商品出品画面①
+![商品出品画面①](./src/public/images/readme/screen8-1.png)
+
+### 商品出品画面②
+![商品出品画面②](./src/public/images/readme/screen8-2.png)
+
+### 購入後チャット画面
+![購入後チャット画面](./src/public/images/readme/screen9.png)
+
+### 取引レビュー入力画面
+![取引レビュー入力画面](./src/public/images/readme/screen10.png)
+
+### マイページ
+![マイページ](./src/public/images/readme/screen11.png)
+
+### プロフィール編集（画像トリミング）
+![プロフィール編集（画像トリミング）](./src/public/images/readme/screen12.png)
 
 ## 工夫したポイント
 - **UI/UX向上**：支払方法即時反映、チャットの画像即時プレビュー、ユーザーアイコン画像トリミング
