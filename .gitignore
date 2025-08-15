@@ -19,6 +19,8 @@
 /src/.env.testing
 
 # Laravel storage
+/src/storage/logs/*.log
+/src/storage/*.log
 /src/storage/*
 /src/storage/framework/views/*.php
 /src/storage/framework/sessions/*
