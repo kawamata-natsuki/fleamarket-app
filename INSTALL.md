@@ -12,7 +12,7 @@
     ```bash
     cd fleamarket-app
     code .
-    ``
+    ```
 
 3. Dockerを起動する  
 Docker Desktopを起動してください。  
@@ -46,49 +46,24 @@ Docker Desktopを起動してください。
         ports:
           - 8091:80  # ポートが競合する場合に各自調整
     ```
-6. Docker イメージのビルドと起動
-
-    以下のコマンドで Docker イメージをビルドし、コンテナを起動します：
+6. 初期セットアップ  
+    プロジェクトルートで以下のコマンドを実行し、初期セットアップを行います：
     ```bash
-    docker-compose up -d --build
+    make init
     ```
-    
-    ※ Mac の M1・M2 チップの PC の場合、 `no matching manifest for linux/arm64/v8 in the manifest list entries` のメッセージが表示されビルドができないことがあります。  
-    エラーが発生する場合は、 `docker-compose.yml` ファイルの `mysql` に以下のように追記してください：
-    ```yaml
-    mysql:
-        platform: linux/x86_64  # この行を追加
-        image: mysql:8.0.26
-        environment:
-    ```
+    `make init` では以下が自動で実行されます：
+    - Dockerイメージのビルド
+    - コンテナ起動
+    - Laravel用 .env（.env.example → .env）配置
+    - Composer依存インストール
+    - APP_KEY生成
+    - DBマイグレーション・シーディング
+    - ストレージのシンボリックリンク作成
 
-7. Laravel のセットアップ
-
-    Laravel の依存パッケージをインストールします：
-    ```bash
-    docker compose exec php bash
-    composer install
-    ```
-
-8. `.env` ファイルの設定  
-
-    ---
-
-    `.env` ファイルの準備
-
-    Laravel 用の環境設定ファイルを作成します：
-    ```
-    exit
-    cd src
-    cp .env.example .env
-    ```
-
-    ---
-
-    メール設定
+ ## メール設定
  
-    メール認証は Mailtrap を使用します。  
-    Mailtrap のアカウントを作成し、受信箱に記載される `MAIL_USERNAME` と `MAIL_PASSWORD` を `.env`設定してください：  
+メール認証は Mailtrap を使用します。  
+Mailtrap のアカウントを作成し、受信箱に記載される `MAIL_USERNAME` と `MAIL_PASSWORD` を `.env`設定してください：  
     ```ini
     MAIL_MAILER=smtp
     MAIL_HOST=sandbox.smtp.mailtrap.io
@@ -100,9 +75,7 @@ Docker Desktopを起動してください。
     MAIL_FROM_NAME="${APP_NAME}"  
     ```
 
-    ---
-
-    Stripe 設定
+## Stripe 設定
 
     Stripe に登録し、テスト用 API キーを取得して `.env` に設定します：
     ```ini
@@ -121,7 +94,7 @@ Docker Desktopを起動してください。
 
     ---
 
-9.  権限設定
+##  権限設定
 
     本模擬案件では Docker 内で `appuser` を作成・使用しているため、基本的に `storage` や `bootstrap/cache` の権限変更は不要です。  
     ただし、ファイル共有設定やOS環境によっては権限エラーになる場合があります。  
@@ -131,36 +104,22 @@ Docker Desktopを起動してください。
     sudo chmod -R 775 bootstrap/cache
     ```
 
-10.  アプリケーションキーの生成
-
-    ```bash
-    docker compose exec php bash
-    php artisan key:generate
-    ```
-
-11.  マイグレーションの実行 
-
-    ```bash
-    php artisan migrate
-    ```
-
-12. シーディングの実行
-
-    ```bash
-    php artisan db:seed
-    ```
-
-13. ストレージのシンボリックリンク作成
-
-    `public/storage` を `storage/app/public` にリンクするためのコマンドです。  
-    画像ファイルを`storage/app/public/items/abc.jpg`に保存しておくと、ブラウザから`http://localhost/storage/items/abc.jpg`のようにアクセス可能になります。
-    ```bash
-    php artisan storage:link
-    ```
-
-14. ブラウザで動作確認
+## URL(動作確認)
 http://localhost:{NGINX_PORT}/login  
 ※ {NGINX_PORT} は `docker-compose.override.yml` で設定したポート番号です（デフォルトは8080）。
+
+
+## ログイン情報一覧
+
+※ログイン確認用のテストアカウントです。  
+※管理者ユーザーは管理画面が存在しないため、ログイン確認用アカウントとしてのみ作成しています。
+
+| ユーザー種別     | メールアドレス         | パスワード   |
+|------------------|--------------------------|--------------|
+| 一般ユーザー①    | mario@example.com         | 12345678     |
+| 一般ユーザー②    | link@example.com          | 12345678     |
+| 一般ユーザー③    | pupupu@example.com        | 12345678     |
+| 管理者ユーザー   | admin@example.com         | admin1234    |
 
 
 ## テスト実行方法まとめ
@@ -195,16 +154,4 @@ http://localhost:{NGINX_PORT}/login
 `UploadedFile::fake()->image(...)`
 を使用しています。  
 そのため、 PHP の GD ライブラリが必要となりますが、 Dockerfile で既にインストール済みのため、追加対応は不要です。
-
-## ログイン情報一覧
-
-※ログイン確認用のテストアカウントです。  
-※管理者ユーザーは管理画面が存在しないため、ログイン確認用アカウントとしてのみ作成しています。
-
-| ユーザー種別     | メールアドレス         | パスワード   |
-|------------------|--------------------------|--------------|
-| 一般ユーザー①    | mario@example.com         | 12345678     |
-| 一般ユーザー②    | link@example.com          | 12345678     |
-| 一般ユーザー③    | pupupu@example.com        | 12345678     |
-| 管理者ユーザー   | admin@example.com         | admin1234    |
 
