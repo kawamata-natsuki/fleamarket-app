@@ -7,9 +7,17 @@
     ```bash
     git clone git@github.com:kawamata-natsuki/fleamarket-app.git
     ``` 
-<br>  
 
-2. `.env` ファイルの準備（ Docker 用）
+2. クローン後、プロジェクトディレクトリに移動してVSCodeを起動
+    ```bash
+    cd fleamarket-app
+    code .
+    ``
+
+3. Dockerを起動する  
+Docker Desktopを起動してください。  
+
+4. プロジェクトルートにDocker用`.env` を作成する 
 
     ```bash
     cp .env.docker.example .env
@@ -20,9 +28,8 @@
       id -u
       id -g
       ```
-<br>
 
-3. `docker-compose.override.yml`の作成
+5. `docker-compose.override.yml`の作成
 
     `docker-compose.override.yml` は、開発環境ごとの個別調整（ポート番号の変更など）を行うための設定ファイルです。  
     以下のコマンドでファイルを作成し、必要に応じて内容を編集してください：
@@ -39,9 +46,7 @@
         ports:
           - 8091:80  # ポートが競合する場合に各自調整
     ```
-<br>
-
-4. Docker イメージのビルドと起動
+6. Docker イメージのビルドと起動
 
     以下のコマンドで Docker イメージをビルドし、コンテナを起動します：
     ```bash
@@ -56,18 +61,16 @@
         image: mysql:8.0.26
         environment:
     ```
-<br>
 
-5. Laravel のセットアップ
+7. Laravel のセットアップ
 
     Laravel の依存パッケージをインストールします：
     ```bash
     docker compose exec php bash
     composer install
     ```
-<br>
 
-6. `.env` ファイルの設定  
+8. `.env` ファイルの設定  
 
     ---
 
@@ -117,9 +120,8 @@
     > CVC：適当な3桁（例：123）
 
     ---
-<br>
 
-7.  権限設定
+9.  権限設定
 
     本模擬案件では Docker 内で `appuser` を作成・使用しているため、基本的に `storage` や `bootstrap/cache` の権限変更は不要です。  
     ただし、ファイル共有設定やOS環境によっては権限エラーになる場合があります。  
@@ -128,40 +130,35 @@
     sudo chmod -R 775 storage
     sudo chmod -R 775 bootstrap/cache
     ```
-<br>
 
-8.  アプリケーションキーの生成
+10.  アプリケーションキーの生成
 
     ```bash
     docker compose exec php bash
     php artisan key:generate
     ```
-<br>
 
-9.  マイグレーションの実行 
+11.  マイグレーションの実行 
 
     ```bash
     php artisan migrate
     ```
-<br>
 
-10. シーディングの実行
+12. シーディングの実行
 
     ```bash
     php artisan db:seed
     ```
-<br>
 
-11. ストレージのシンボリックリンク作成
+13. ストレージのシンボリックリンク作成
 
     `public/storage` を `storage/app/public` にリンクするためのコマンドです。  
     画像ファイルを`storage/app/public/items/abc.jpg`に保存しておくと、ブラウザから`http://localhost/storage/items/abc.jpg`のようにアクセス可能になります。
     ```bash
     php artisan storage:link
     ```
-<br>
 
-12. ブラウザで動作確認
+14. ブラウザで動作確認
 http://localhost:{NGINX_PORT}/login  
 ※ {NGINX_PORT} は `docker-compose.override.yml` で設定したポート番号です（デフォルトは8080）。
 
