@@ -105,8 +105,9 @@ Mailtrap のアカウントを作成し、受信箱に記載される `MAIL_USER
     ```
 
 ## URL(動作確認)
-http://localhost:{NGINX_PORT}/login  
-※ {NGINX_PORT} は `docker-compose.override.yml` で設定したポート番号です（デフォルトは8080）。
+- 開発環境 ：http://localhost:{NGINX_PORT}  
+- データベース：http://localhost:{PHPMYADMIN_PORT}  
+※ {NGINX_PORT}や {PHPMYADMIN_PORT}は `docker-compose.override.yml` で各自の環境に合わせて調整してください。
 
 
 ## ログイン情報一覧
@@ -150,7 +151,7 @@ http://localhost:{NGINX_PORT}/login
 
 ### 画像アップロードのテストについて
 
-本模擬案件では画像アップロードのテストに  
+本アプリでは画像アップロードのテストに  
 `UploadedFile::fake()->image(...)`
 を使用しています。  
 そのため、 PHP の GD ライブラリが必要となりますが、 Dockerfile で既にインストール済みのため、追加対応は不要です。
